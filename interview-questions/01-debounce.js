@@ -25,8 +25,9 @@ const debounceFn = debounce(() => {
 console.log(debounceFn())
 
 /*
+  Debounce: limits the execution of a certain call & waits for a given time before running it again
 
-    •   let timeout: A variable (timeout) is declared to hold the ID of the timer, which will be used to delay the execution of func.
+  • let timeout: A variable (timeout) is declared to hold the ID of the timer, which will be used to delay the execution of func.
 	•	return function(...args): The debounce function returns a new function that can accept any number of arguments. This is the debounced version of the original func.
 	•	context: The value of this (the execution context) is stored in a variable context. This ensures that if the function is called with a particular context (e.g., within an object), it will maintain that context when func is eventually executed.
 	•	clearTimeout(timeout): Every time the returned function is called, it first clears any existing timeout. This ensures that the function call will be delayed until no further calls are made within the wait time.

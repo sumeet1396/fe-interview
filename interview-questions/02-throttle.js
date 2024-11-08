@@ -38,3 +38,11 @@ console.log(throttleFn());
 console.log(throttleFn());
 console.log(throttleFn());
 console.log(throttleFn());
+
+/*
+
+Throttling: This code ensures that even if the function is called multiple times rapidly, it will only execute once every 3 seconds.
+
+Des: it limits the execution of a event handler function, when the event is triggred continuously due to user actions.
+
+*/
