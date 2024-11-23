@@ -1,6 +1,8 @@
 /**
  * Creates a debounced function that delays invoking `func` until after `wait` milliseconds
  * have elapsed since the last time the debounced function was invoked.
+ * 
+ * Use Case: Suppose you have a search bar that provides suggestions as the user types. If you make an API call to fetch suggestions for every keystroke, it will lead to excessive network requests and could slow down the app.
  *
  * @param {Function} func - The function to debounce.
  * @param {number} wait - The number of milliseconds to delay.
