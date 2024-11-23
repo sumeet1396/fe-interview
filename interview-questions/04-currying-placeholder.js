@@ -1,3 +1,11 @@
+/**
+ * Creates a curried version of a function that supports placeholders for partial application.
+ * 
+ * @param {Function} func - The function to curry.
+ * @param {*} [placeholder='_'] - A placeholder value used to skip arguments during partial application.
+ * @returns {Function} A curried version of the input function.
+ * 
+ */
 function curry(func, placeholder = '_') {
     return function curried(...args) {
       const completeArgs = (args.length >= func.length && !args.includes(placeholder));
@@ -16,7 +24,7 @@ function curry(func, placeholder = '_') {
     };
 }
 
-const _ = '_'; // Placeholder
+const _ = '_';
 const add = (a, b, c) => a + b + c;
 
 const curriedAdd = curry(add, _);
