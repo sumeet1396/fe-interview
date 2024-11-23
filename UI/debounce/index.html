@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debounce Input</title>
+</head>
+<body>
+    <p id="display-text"></p>
+    <input type="text" name="name" id="name-input">
+    <script>
+        const elm = document.querySelector('#display-text');
+        const input = document.querySelector('#name-input');
+
+        const debounce = (fun, wait) => {
+            let timer;
+            return (...args) => {
+                const context = this;
+                clearTimeout(timer);
+                timer = setTimeout(() => {
+                    fun.apply(context, args)
+                }, wait)
+            }
+        }
+
+        const updateText = debounce((text) => {
+            elm.innerHTML = text;
+        }, 500);
+
+        input.addEventListener('input', (e) => {
+            const text = e.target.value
+            updateText(text)
+        })
+        
+    </script>
+</body>
+</html>

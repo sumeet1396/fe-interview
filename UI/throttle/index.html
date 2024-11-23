@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Throttle</title>
+    <style>
+        #status {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <button id="action-button">Click Me Rapidly</button>
+    <p id="rapid-status">Rapid in action: <span id="rapid-count">0</span> times</p>
+    <p id="status">Throttle in action: <span id="count">0</span> times</p>
+    <script>
+        // Throttle function implementation
+        const throttle = (func, limit) => {
+            let lastCall = 0;
+            return (...args) => {
+                const context = this;
+                const now = Date.now();
+                if (now - lastCall >= limit) {
+                    lastCall = now;
+                    func.apply(context, args);
+                }
+            };
+        };
+
+        const button = document.querySelector('#action-button');
+        const countDisplay = document.querySelector('#count');
+        const rapidCountDisplay = document.querySelector('#rapid-count');
+        let clickCount = 0;
+        let count = 0;
+        // Throttled function for updating the click count
+        const updateClickCount = throttle(() => {
+            clickCount += 1;
+            countDisplay.textContent = clickCount;
+        }, 1000); // Throttle to once per second
+
+        // Event listener for button clicks
+        button.addEventListener('click', () => {
+            count++
+            rapidCountDisplay.textContent = count;
+            updateClickCount()
+        });
+    </script>
+</body>
+</html>
