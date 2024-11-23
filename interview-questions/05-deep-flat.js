@@ -1,3 +1,15 @@
+/**
+ * Flattens a nested array into a single-level array.
+ * 
+ * @param {Array} arr - The array to flatten.
+ * @returns {Array} A new array that is a flattened version of the input array.
+ * 
+ * @example
+ * const nestedArray = [1, [2, [3, 4], 5], 6];
+ * const flattenedArray = flattenArray(nestedArray);
+ * console.log(flattenedArray); // Output: [1, 2, 3, 4, 5, 6]
+ */
+
 // nested array flatten
 const flattenArray = (arr) => {
     return arr.reduce(function (flatArr, element) {
