@@ -1,7 +1,7 @@
 function threeSum(nums) {
     const results = [];
     // Sort the array to use two-pointer technique
-    nums.sort((a, b) => a - b);
+    nums.sort((a, b) => a - b); // [-4, -1, -1, 0, 1, 2]
 
     for (let i = 0; i < nums.length - 2; i++) {
         // Skip duplicates for the first element
@@ -22,7 +22,7 @@ function threeSum(nums) {
 
                 left++;
                 right--;
-            } else if (sum < target) {
+            } else if (sum < 0) {
                 left++; // Increase the sum
             } else {
                 right--; // Decrease the sum
