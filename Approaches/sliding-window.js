@@ -14,10 +14,15 @@ const maxSubarraySum = (arr, k) => {
         currentSum += arr[i];
     }
 
-    maxSum = currentSum;
+    maxSum = currentSum; //2 + 1 + 5 = 8
 
     for (let i = k; i < arr.length; i++) {
         currentSum = currentSum - arr[i - k] + arr[i];
+        /*
+            Adding arr[i] = 1 and subtracting arr[i - k] = 2, new currentSum = 8 + 1 - 2 = 7
+            Adding arr[i] = 3 and subtracting arr[i - k] = 1, new currentSum = 7 + 3 - 1 = 9
+            Adding arr[i] = 2 and subtracting arr[i - k] = 5, new currentSum = 9 + 2 - 5 = 6
+        */
         maxSum = Math.max(maxSum, currentSum);
     }
 
