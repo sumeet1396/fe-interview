@@ -24,6 +24,11 @@ const maxSubarraySum = (arr, k) => {
             Adding arr[i] = 2 and subtracting arr[i - k] = 5, new currentSum = 9 + 2 - 5 = 6
         */
         maxSum = Math.max(maxSum, currentSum);
+        /*
+            maxSum remains 8 as it is greater than currentSum (7)
+            maxSum updated to 9 as currentSum (9) is greater
+            maxSum remains 9 as it is greater than currentSum (6)
+        */
     }
 
     return maxSum;
