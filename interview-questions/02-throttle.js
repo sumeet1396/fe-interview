@@ -20,7 +20,6 @@ const throttle = (func, limit) => {
       } else {
         clearTimeout(lastFunc);
         lastFunc = setTimeout(function() {
-          console.log(Date.now() - lastRan, limit)
           if ((Date.now() - lastRan) >= limit) {
             func.apply(context, args);
             lastRan = Date.now();

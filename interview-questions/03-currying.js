@@ -38,3 +38,24 @@ const infiniteCurrying = (a) => {
 
 console.log(infiniteCurrying(1)(2)(3)(4)(5)())
 
+// currying technique
+function curry(fn) {
+    return function curried(...args) {
+        console.log("ARGS", args.length)
+        if (args.length >= fn.length) {
+            return fn(...args);
+        }
+
+        return (...nextArgs) => curried(...args, ...nextArgs);
+    };
+}
+
+
+const join = (a, b, c) => `${a}_${b}_${c}`;
+
+const curriedJoin = curry(join);
+
+console.log(curriedJoin(1, 2, 3));
+console.log(curriedJoin(1)(2, 3));
+console.log(curriedJoin(1, 2)(3));
+console.log(curriedJoin(1)(2)(3));
