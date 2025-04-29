@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <style>
+        .container {
+            max-width: 1240px;
+            width: 86%;
+            margin: 0 auto;
+        }
+        .players-details{
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .player {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .board {
+            width: 305px;
+            height: 305px;
+            margin: 0 auto;
+        }
+
+        .board .rows {
+            display: flex;
+        }
+        .board .box {
+            width: 100px;
+            height: 100px;
+            border: 1px solid #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .status {
+            text-align: center;
+            font-size: 30px;
+            display: none;
+        }
+
+        .btn-container {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .board .box.disable {
+            cursor: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="players-details">
+            <div class="player" id="player-1">
+                <span>Player 1</span>
+                <span id="player-1-score" data-score="0">Score: 0</span>
+            </div>
+            <div class="player" id="player-2">
+                <span>Player 2</span>
+                <span id="player-2-score" data-score="0">Score: 0</span>
+            </div>
+        </div>
+        <p class="status"> Winner is Player: 1</p>
+        <div class="board" id="board">
+            <div class="rows" id="row-1">
+                <div class="box" id="col-1"></div>
+                <div class="box" id="col-2"></div>
+                <div class="box" id="col-3"></div>
+            </div>
+            <div class="rows" id="row-2">
+                <div class="box" id="col-1"></div>
+                <div class="box" id="col-2"></div>
+                <div class="box" id="col-3"></div>
+            </div>
+            <div class="rows" id="row-3">
+                <div class="box" id="col-1"></div>
+                <div class="box" id="col-2"></div>
+                <div class="box" id="col-3"></div>
+            </div>
+        </div>
+        <div class="btn-container">
+            <button id="reset-btn">Reset</button>
+        </div>
+    </div>
+    <script>
+        const matrix = [['','',''],['','',''],['','','']]
+        let currentPlayer = 1
+        let currentMove = 0;
+        let gameOver = false;
+
+        const status = document.querySelector('.status');
+        const boxes = document.querySelectorAll('.box')
+        const reset = document.querySelector('#reset-btn')
+
+        const updateData = (val) => {
+            const current = val === 'X' ? 1 : 2
+            const player = document.querySelector(`#player-${current}-score`)
+            let score = parseInt(player.getAttribute('data-score'))
+            score += 1;
+
+            player.setAttribute('data-score',score)
+            player.innerHTML = 'Score: '+ score;
+
+            status.style.display = 'block';
+            status.innerHTML = 'Winner is Player: '+current;
+
+            gameOver = true
+        }
+
+        const checkForWinner = (row, col, val) => {
+            if (currentMove >= 9) {
+                status.style.display = 'block';
+                status.innerHTML = 'Match Draw';
+
+                gameOver = true
+                return;
+            }
+            matrix[row][col] = val
+
+            const rowSequence = matrix[row].every(elm => elm === val)
+            const colSequence =  matrix.every((elm, index) => matrix[index][col] === val)
+            const crossSequence = (matrix[0][0] === val && matrix[1][1] === val && matrix[2][2] === val) || (matrix[0][2] === val && matrix[1][1] === val && matrix[2][0] === val)
+
+            if (rowSequence || colSequence || crossSequence) updateData(val)
+        }
+
+        boxes.forEach((box, i) => {
+            box.addEventListener('click', function() {
+                const val = this.getAttribute('data-val')
+                if (gameOver || val) return;
+                
+                const id = this.id
+                const parentId = this.parentElement.id
+
+                let currentVal = currentPlayer === 1 ? 'X' : 'O'
+                this.innerHTML = currentVal
+                this.setAttribute('data-val', currentVal)
+                currentPlayer = currentPlayer === 1 ? 2 : 1
+                currentMove++
+                checkForWinner(parentId.slice(-1)-1, id.slice(-1)-1, currentVal)
+
+            });
+        });
+
+        reset.addEventListener('click', function() {
+            currentPlayer = 1
+            currentMove = 0;
+            gameOver = false;
+
+            for (let i = 0; i < matrix.length; i++) matrix[i] = ['','','']
+
+            boxes.forEach((box, i) => {
+                box.removeAttribute('data-val')
+                box.innerHTML = '';
+                box.classList.remove('disable')
+            })
+        })
+    </script>
+</body>
+</html>
