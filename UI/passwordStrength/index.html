@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Strength</title>
+    <style>
+        .success-rule {
+            color: greenyellow;
+        }
+    </style>
+</head>
+<body>
+    <form action="#">
+        <div class="form-control">
+            <input type="password" name="password" id="password">
+        </div>
+        <div class="listing">
+            <ul class="validation-rules">
+                <li class="rules" id="rule-uppercase">1 Uppercase Character</li>
+                <li class="rules" id="rule-lowercase">1 Lowercase Character</li>
+                <li class="rules" id="rule-number">1 Numeric Character</li>
+                <li class="rules" id="rule-special-character">1 Special Character</li>
+                <li class="rules" id="rule-length">Minimum 12 Character Length</li>
+            </ul>
+        </div>
+    </form>
+    <script>
+        const password = document.querySelector('#password');
+        const rulesList = document.querySelectorAll('.rules');
+        const rules = ['uppercase', 'lowercase', 'number', 'special-character', 'length'] 
+        const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+
+        const debounce = (fun, wait) => {
+            let timer;
+            return (...args) => {
+                const context = this;
+                clearTimeout(timer);
+                timer = setTimeout(() => {
+                    fun.apply(context, args)
+                }, wait)
+            }
+        }
+
+        const validate = debounce((text) => {
+            if (/[A-Z]/.test(text)) rulesList[0].classList.add('success-rule')
+            else rulesList[0].classList.remove('success-rule')
+
+            if (/[a-z]/.test(text)) rulesList[1].classList.add('success-rule')
+            else rulesList[1].classList.remove('success-rule')
+
+            if (/\d/.test(text)) rulesList[2].classList.add('success-rule')
+            else rulesList[2].classList.remove('success-rule')
+
+            if (specialChars.test(text)) rulesList[3].classList.add('success-rule')
+            else rulesList[3].classList.remove('success-rule')
+
+            if (text.length >= 12) rulesList[4].classList.add('success-rule')
+            else rulesList[4].classList.remove('success-rule')
+        }, 500);
+
+        password.addEventListener('input', (e) => {
+            const text = e.target.value
+            validate(text)
+        })
+
+    </script>
+</body>
+</html>
