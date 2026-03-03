@@ -1,3 +1,7 @@
 .DS_Store
 .idea
 practice.js
+.vscode
+node_modules
+dist
+build   
