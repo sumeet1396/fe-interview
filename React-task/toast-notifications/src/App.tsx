@@ -1,6 +1,7 @@
 import { AlertCircle, CheckCircle, AlertTriangle, Info } from "react-feather";
 import { useToast } from "./Toast/ToastService";
 import type { ToastType } from "./Toast/types";
+import type { JSX } from "react";
 
 const TOAST_CONFIG: Record<
   ToastType,
