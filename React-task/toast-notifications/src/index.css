@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn-group > button {
+    @apply text-white px-4 py-2 rounded-md cursor-pointer transition-transform duration-200 hover:scale-105;
+  }
+}
+
+/*
+[&>button]:text-white [&>button]:px-4 [&>button]:py-2 [&>button]:rounded-md [&>button]:cursor-pointer
+*/
